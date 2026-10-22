@@ -3,9 +3,9 @@ A CS310 project that finds empty rooms in sabanci
 
 # Team Collaborators:
 
-Duru Halıcı
+Duru Halıcı -Dru211
 
-Han Eskicioğlu
+Han Eskicioğlu -haneskicioglu
 
 Hüseyin Efe Çağlar - Youtube101
 
