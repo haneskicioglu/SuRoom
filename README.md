@@ -3,10 +3,10 @@ A CS310 project that finds empty rooms in sabanci
 
 # Team Collaborators:
 
-Duru Halıcı - dru211
+Duru Halıcı - @dru211
 
-Han Eskicioğlu - haneskicioglu
+Han Eskicioğlu - @haneskicioglu
 
-Hüseyin Efe Çağlar - YouTube-101
+Hüseyin Efe Çağlar - @YouTube-101
 
-Yağız Toprak - topraksSu
+Yağız Toprak - @topraksSu
