@@ -1,0 +1,61 @@
+flutter:
+  uses-material-design: true
+
+  fonts:
+    - family: Nexa
+      fonts:
+        # Weight 100 (Thin)
+        - asset: assets/fonts/NexaThinNormal.ttf
+          weight: 100
+        - asset: assets/fonts/NexaThinItalic.ttf
+          weight: 100
+          style: italic
+
+        # Weight 200 (Light)
+        - asset: assets/fonts/NexaLightNormal.ttf
+          weight: 200
+        - asset: assets/fonts/NexaLightItalic.ttf
+          weight: 200
+          style: italic
+
+        # Weight 300 (Book)
+        - asset: assets/fonts/NexaBookNormal.ttf
+          weight: 300
+        - asset: assets/fonts/NexaBookItalic.ttf
+          weight: 300
+          style: italic
+
+        # Weight 400 (Regular)
+        - asset: assets/fonts/NexaRegularNormal.ttf
+          weight: 400
+        - asset: assets/fonts/NexaRegularItalic.ttf
+          weight: 400
+          style: italic
+
+        # Weight 500 (Bold / Medium)
+        - asset: assets/fonts/NexaBoldNormal.ttf
+          weight: 500
+        - asset: assets/fonts/NexaBoldItalic.ttf
+          weight: 500
+          style: italic
+
+        # Weight 600 (XBold)
+        - asset: assets/fonts/NexaXBoldNormal.ttf
+          weight: 600
+        - asset: assets/fonts/NexaXBoldItalic.ttf
+          weight: 600
+          style: italic
+
+        # Weight 700 (Heavy)
+        - asset: assets/fonts/NexaHeavyNormal.ttf
+          weight: 700
+        - asset: assets/fonts/NexaHeavyItalic.ttf
+          weight: 700
+          style: italic
+
+        # Weight 800 (Black)
+        - asset: assets/fonts/NexaBlackNormal.ttf
+          weight: 800
+        - asset: assets/fonts/NexaBlackItalic.ttf
+          weight: 800
+          style: italic
