@@ -54,18 +54,21 @@ class _HomeBody extends StatelessWidget {
           icon: Icons.location_on_outlined,
           title: 'Nearest Empty Room',
           subtitle: 'Nearest rooms with no activity',
+          onClick: null,
         ),
         SizedBox(height: 12),
         _ActionTile(
           icon: Icons.search,
           title: 'Search Room',
           subtitle: 'Search by room ID or filters',
+          onClick: null,
         ),
         SizedBox(height: 12),
         _ActionTile(
           icon: Icons.confirmation_number_outlined,
           title: 'Room Check-in',
           subtitle: 'Check into the room that you are in',
+          onClick: null,
         ),
         SizedBox(height: 16),
         _CampusMapButton(),
@@ -294,16 +297,18 @@ class _EventItem extends StatelessWidget {
 class _ActionTile extends StatelessWidget {
   final IconData icon;
   final String title, subtitle;
+  final VoidCallback? onClick;
   const _ActionTile({
     required this.icon,
     required this.title,
     required this.subtitle,
+    required this.onClick,
   });
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () {},
+      onTap: onClick,
       child: Container(
         clipBehavior: Clip.antiAlias,
         decoration: BoxDecoration(

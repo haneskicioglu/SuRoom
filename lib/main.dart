@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'app_colors.dart';
 import 'home_screen.dart';
+import 'room_details.dart';
 
 void main() {
   runApp(const SuRoomApp());

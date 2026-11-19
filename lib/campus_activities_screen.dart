@@ -252,16 +252,7 @@ class _CampusActivitiesScreenState extends State<CampusActivitiesScreen> {
             const SizedBox(height: 12),
           ],
         ],
-      ),
-    bottomNavigationBar: BottomNav(
-       current: -1 ,
-       onTap: (i) => Navigator.pushAndRemoveUntil(
-       context,
-       MaterialPageRoute(builder: (_) => HomeScreen(initialTab: i)),
-      (route) => false,
-
-    ),
-    ),
+      )
     );
   }
 }
