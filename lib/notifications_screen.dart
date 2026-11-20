@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 import 'app_colors.dart';
-import 'bottom_navigation.dart';
 
 class NotificationsScreen extends StatelessWidget {
   const NotificationsScreen({super.key});
@@ -79,11 +78,6 @@ class NotificationsScreen extends StatelessWidget {
             ),
           );
         },
-      ),
-      bottomNavigationBar: BottomNav(
-        current: -1 ,
-        onTap: (_) {},
-
       ),
     );
   }

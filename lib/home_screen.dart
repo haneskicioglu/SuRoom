@@ -3,8 +3,6 @@ import 'package:flutter/services.dart';
 
 import 'app_colors.dart';
 import 'bottom_navigation.dart';
-import 'notifications_screen.dart';
-import 'campus_activities_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   final int initialTab;
@@ -47,14 +45,16 @@ class _HomeBody extends StatelessWidget {
   Widget build(BuildContext context) {
     return ListView(
       padding: const EdgeInsets.fromLTRB(16, 14, 16, 24),
-      children: const [
+      children: [
         _ActivitiesCard(),
         SizedBox(height: 12),
         _ActionTile(
           icon: Icons.location_on_outlined,
           title: 'Nearest Empty Room',
           subtitle: 'Nearest rooms with no activity',
-          onClick: null,
+          onClick: () => {
+            Navigator.pushNamed(context, '/room_details', arguments: {'roomName': 'G032', 'building': 'FENS'}),
+          },
         ),
         SizedBox(height: 12),
         _ActionTile(
@@ -137,7 +137,7 @@ PreferredSizeWidget _buildAppBar(
             shape: BoxShape.circle,
             boxShadow: [
               BoxShadow(
-                color: Colors.black.withOpacity(0.18),
+                color: Colors.black.withValues(alpha: 0.18),
                 blurRadius: 8,
                 offset: const Offset(0, 3),
               ),
@@ -146,10 +146,7 @@ PreferredSizeWidget _buildAppBar(
           child: IconButton(
             icon: const Icon(Icons.notifications_none, color: AppColors.teal),
             onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (_) => const NotificationsScreen()),
-              );
+              Navigator.pushNamed(context, '/notifications');
             },
           ),
         ),
@@ -162,15 +159,12 @@ class _ActivitiesCard extends StatelessWidget {
   const _ActivitiesCard();
 
   void _open(BuildContext context) {
-    Navigator.push(
-      context,
-      MaterialPageRoute(builder: (_) => const CampusActivitiesScreen()),
-    );
+    Navigator.pushNamed(context, '/activities');
   }
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
+    return InkWell(
       onTap: () => _open(context),
       child: Container(
         padding: const EdgeInsets.fromLTRB(16, 18, 16, 16),
@@ -307,38 +301,38 @@ class _ActionTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
+    return InkWell(
       onTap: onClick,
       child: Container(
-        clipBehavior: Clip.antiAlias,
-        decoration: BoxDecoration(
-          color: AppColors.cream,
-          borderRadius: BorderRadius.circular(6),
-        ),
-        child: IntrinsicHeight(
-          child: Row(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              Container(
-                width: 76,
-                color: AppColors.green,
-                child: Icon(icon, color: Colors.white, size: 28),
-              ),
-              Expanded(
-                child: Padding(
-                  padding: const EdgeInsets.fromLTRB(10, 22, 10, 22),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(title,
-                          style: const TextStyle(
-                              fontSize: 20,
-                              fontWeight: FontWeight.w600,
-                              color: AppColors.dark)),
-                      const SizedBox(height: 4),
-                      Text(subtitle,
-                          style: const TextStyle(
-                              fontSize: 15, color: AppColors.dark)),
+      clipBehavior: Clip.antiAlias,
+      decoration: BoxDecoration(
+        color: AppColors.cream,
+        borderRadius: BorderRadius.circular(6),
+      ),
+      child: IntrinsicHeight(
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            Container(
+              width: 76,
+              color: AppColors.teal,
+              child: Icon(icon, color: Colors.white, size: 28),
+            ),
+            Expanded(
+              child: Padding(
+                padding: const EdgeInsets.fromLTRB(10, 22, 10, 22),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(title,
+                        style: const TextStyle(
+                            fontSize: 20,
+                            fontWeight: FontWeight.w600,
+                            color: AppColors.dark)),
+                    const SizedBox(height: 4),
+                    Text(subtitle,
+                        style: const TextStyle(
+                            fontSize: 15, color: AppColors.dark)),
                     ],
                   ),
                 ),
@@ -346,7 +340,7 @@ class _ActionTile extends StatelessWidget {
             ],
           ),
         ),
-      ),
+      )
     );
   }
 }

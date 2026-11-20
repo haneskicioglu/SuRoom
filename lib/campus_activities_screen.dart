@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 import 'app_colors.dart';
-import 'bottom_navigation.dart';
-import 'home_screen.dart';
 
 class CampusActivitiesScreen extends StatefulWidget {
   const CampusActivitiesScreen({super.key});

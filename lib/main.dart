@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 
 import 'app_colors.dart';
 import 'home_screen.dart';
+import 'notifications_screen.dart';
+import 'campus_activities_screen.dart';
 import 'room_details.dart';
 
 void main() {
@@ -21,7 +23,13 @@ class SuRoomApp extends StatelessWidget {
         scaffoldBackgroundColor: AppColors.blue_background,
         fontFamily: 'Nexa',
       ),
-      home: const HomeScreen(),
+      initialRoute: '/',
+      routes: {
+        '/': (context) => const HomeScreen(),
+        '/notifications': (context) => const NotificationsScreen(),
+        '/activities': (context) => const CampusActivitiesScreen(),
+        '/room_details': (context) => const RoomDetails(),
+      }
     );
   }
 }
