@@ -1,13 +1,57 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 import 'app_colors.dart';
 
 
+class RoomAttributeIcon extends StatelessWidget {
+  // this either returns an svg or an icon, depending on the type of the icon
+  final String? svg;
+  final IconData? icon;
+  const RoomAttributeIcon({super.key, this.svg, this.icon});
+  @override
+  Widget build(BuildContext context) {
+    if (svg != null) {
+      return SvgPicture.asset(
+        svg!,
+        width: 24,
+        height: 24,
+      );
+    } else if (icon != null) {
+      return Icon(icon!, size: 24, color: AppColors.lightGreen);
+    } else {
+      return const SizedBox.shrink();
+    }
+  }
+
+}
+
+class RoomAttribute extends ListTile {
+  final String name;
+  final RoomAttributeIcon icon;
+
+  const RoomAttribute({super.key, required this.name, required this.icon});
+
+  @override
+  Widget build(BuildContext context) {
+    return ListTile(
+      contentPadding: const EdgeInsets.symmetric(horizontal: 0, vertical: 0),
+      minVerticalPadding: 0,
+      visualDensity: const VisualDensity(horizontal: 0, vertical: -4),
+      minLeadingWidth: 0,
+      leading: icon,
+      title: Text(name,
+          style: const TextStyle(
+              fontSize: 18,
+              fontWeight: FontWeight.w500,
+              color: AppColors.cream)),
+    );
+  }
+}
 
 class RoomDetails extends StatelessWidget {
-  final String? roomName;
-  const RoomDetails({super.key, this.roomName});
+  const RoomDetails({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -65,9 +109,30 @@ class RoomDetails extends StatelessWidget {
                   style: const TextStyle(
                     fontSize: 32,
                     fontWeight: FontWeight.w800,
-                    color: AppColors.cream))
-
-              ],
+                    color: AppColors.cream)),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Expanded(
+                      child: ListView(
+                        shrinkWrap: true,
+                        children: [
+                          RoomAttribute(name: "yes yes", icon: RoomAttributeIcon(svg:"assets/icons/people.svg")),
+                        ]
+                      )
+                    ),
+                    Expanded(
+                      child: ListView(
+                        shrinkWrap: true,
+                        children: [
+                          RoomAttribute(name: "good class", icon: RoomAttributeIcon(icon:Icons.thumb_up)),
+                        ]
+                      )
+                    )
+                  ]
+                ),
+              ]
             ),
           )
         ]
