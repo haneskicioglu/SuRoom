@@ -1,93 +1,81 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 
+import 'room_data_mock.dart';
 import 'app_colors.dart';
 
-
-class RoomAttributeIcon extends StatelessWidget {
-  // this either returns an svg or an icon, depending on the type of the icon
-  final String? svg;
-  final IconData? icon;
-  const RoomAttributeIcon({super.key, this.svg, this.icon});
-  @override
-  Widget build(BuildContext context) {
-    if (svg != null) {
-      return SvgPicture.asset(
-        svg!,
-        width: 24,
-        height: 24,
-      );
-    } else if (icon != null) {
-      return Icon(icon!, size: 24, color: AppColors.lightGreen);
-    } else {
-      return const SizedBox.shrink();
-    }
-  }
-
-}
-
-class RoomAttribute extends ListTile {
-  final String name;
-  final RoomAttributeIcon icon;
-
-  const RoomAttribute({super.key, required this.name, required this.icon});
-
-  @override
-  Widget build(BuildContext context) {
-    return ListTile(
-      contentPadding: const EdgeInsets.symmetric(horizontal: 0, vertical: 0),
-      minVerticalPadding: 0,
-      visualDensity: const VisualDensity(horizontal: 0, vertical: -4),
-      minLeadingWidth: 0,
-      leading: icon,
-      title: Text(name,
-          style: const TextStyle(
-              fontSize: 18,
-              fontWeight: FontWeight.w500,
-              color: AppColors.cream)),
-    );
-  }
-}
 
 class RoomDetails extends StatelessWidget {
   const RoomDetails({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final AppBar myBar = AppBar(
+      toolbarHeight: 80,
+      backgroundColor: AppColors.blue_background,
+      surfaceTintColor: AppColors.blue_background,
+      systemOverlayStyle: SystemUiOverlayStyle(
+        statusBarColor: AppColors.blue_background,
+        statusBarIconBrightness: Brightness.dark,
+        statusBarBrightness: Brightness.light,
+      ),
+      title: Text('Room Details',
+      style: TextStyle(
+        fontSize: 30,
+        fontWeight: FontWeight.w700,
+        color: AppColors.dark,
+      ),
+    ),
+      leading: Row(
+        children: [
+          IconButton(
+            icon: Icon(Icons.arrow_back_ios_new,
+                color: AppColors.dark, size: 22),
+            onPressed: () => Navigator.pop(context),
+          ),
+        ],
+      ),
+    );
     final args = ModalRoute.of(context)?.settings.arguments as Map<String, dynamic>?;
-    final String roomName = args?['roomName'];
-    final String building = args?['building'];
+    if (args?['id'] == null) {
+      return Scaffold(
+        appBar: myBar,
+        body: Center(
+          child: Text('Room ID not provided'),
+        ),
+      );
+    }
+    final room = MockRooms.rooms.firstWhere((r) => r['id'] == args?['id'], orElse: () => {});
+    if (room.isEmpty) {
+      return Scaffold(
+        appBar: myBar,
+        body: Center(
+          child: Text('Room not found'),
+        ),
+      );
+    }
+
+    final List<RoomAttribute> columnOne = [];
+    final List<RoomAttribute> columnTwo = [];
+    bool firstColumn = false;
+
+    columnOne.add(RoomAttribute(name: "${room['capacity']} Seats", icon: RoomAttributeIcon(svg:"assets/icons/people.svg")));
+    for (var attribute in room['attributes']) {
+      if (AttributeTags.attributeWidgets.containsKey(attribute)) {
+        final attr = AttributeTags.attributeWidgets[attribute]!;
+        if (firstColumn) {
+          columnOne.add(attr);
+          firstColumn = false;
+        } else {
+          columnTwo.add(attr);
+          firstColumn = true;
+        }
+      }
+    }
+
     return Scaffold(
       backgroundColor: AppColors.blue_background,
-      appBar: AppBar(
-        toolbarHeight: 80,
-        backgroundColor: AppColors.blue_background,
-        surfaceTintColor: AppColors.blue_background,
-        systemOverlayStyle: SystemUiOverlayStyle(
-          statusBarColor: AppColors.blue_background,
-          statusBarIconBrightness: Brightness.dark,
-          statusBarBrightness: Brightness.light,
-        ),title: const Text(
-        'Room Details',
-        style: TextStyle(
-          fontSize: 30,
-          fontWeight: FontWeight.w700,
-          color: AppColors.dark,
-        ),
-      ),
-        leading: Row(
-          children: [
-            IconButton(
-              icon: const Icon(Icons.arrow_back_ios_new,
-                  color: AppColors.dark, size: 22),
-              onPressed: () => Navigator.pop(context),
-            ),
-          ],
-        ),
-      ),
-
-
+      appBar: myBar,
       body: ListView(
         padding: const EdgeInsets.fromLTRB(16, 0, 16, 24),
         children: [
@@ -100,40 +88,69 @@ class RoomDetails extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text('Large Classroom',
+                Text('${room['type']}',
                   style: const TextStyle(
                     fontSize: 18,
                     fontWeight: FontWeight.w500,
                     color: AppColors.cream)),
-                Text('$building $roomName',
-                  style: const TextStyle(
-                    fontSize: 32,
-                    fontWeight: FontWeight.w800,
-                    color: AppColors.cream)),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text('${room['id']}',
+                      style: const TextStyle(
+                        fontSize: 32,
+                        fontWeight: FontWeight.w800,
+                        color: AppColors.cream)),
+                    CustomButton(
+                      text: 'Navigate',
+                      onPressed: () {},
+                    )
+                  ]
+                ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Expanded(
-                      child: ListView(
-                        shrinkWrap: true,
-                        children: [
-                          RoomAttribute(name: "yes yes", icon: RoomAttributeIcon(svg:"assets/icons/people.svg")),
-                        ]
+                      child: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        crossAxisAlignment: CrossAxisAlignment.stretch,
+                        children: columnOne
                       )
                     ),
                     Expanded(
-                      child: ListView(
-                        shrinkWrap: true,
-                        children: [
-                          RoomAttribute(name: "good class", icon: RoomAttributeIcon(icon:Icons.thumb_up)),
-                        ]
+                      child: Column(
+                          mainAxisSize: MainAxisSize.min,
+                          crossAxisAlignment: CrossAxisAlignment.stretch,
+                          children: columnTwo
                       )
                     )
                   ]
                 ),
               ]
             ),
+          ),
+          SizedBox(height: 10),
+          Container(
+            padding: const EdgeInsets.fromLTRB(20, 8, 20, 8),
+            decoration: BoxDecoration(
+              color: AppColors.cream,
+              borderRadius: BorderRadius.circular(8),
+            ),
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Icon(Icons.location_on_outlined, size: 24, color: AppColors.teal),
+                SizedBox(width: 5),
+                Expanded(
+                  child: Text('${room['building']}\n${AllFloors.get(room['floor'])}',
+                    style: const TextStyle(
+                      fontSize: 18,
+                      fontWeight: FontWeight.w500,
+                      color: AppColors.dark)),
+                )
+              ]
+            )
           )
         ]
       ),

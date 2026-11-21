@@ -1,6 +1,7 @@
 
 import 'package:flutter/material.dart';
 import 'app_colors.dart';
+import 'room_data_mock.dart';
 
 class SearchPage extends StatelessWidget {
   final VoidCallback? onBack;
@@ -31,38 +32,6 @@ class _SearchPageContentState extends State<_SearchPageContent> {
 
   String searchQuery = '';
   bool ascending = true;
-//MOCK DATA
-  final List<Map<String, dynamic>> rooms = [
-    {
-      'id': 'FENS G035',
-      'building': 'FENS',
-      'type': 'Classroom',
-      'capacity': 30,
-      'facilities': ['Projector', 'Whiteboard', 'Accessible'],
-      'available': '16:00',
-    },
-    {
-      'id': 'FMAN L014',
-      'building': 'FMAN',
-      'type': 'Lecture hall',
-      'capacity': 80,
-      'facilities': ['Projector', 'Whiteboard'],
-      'available': '16:00',
-    },
-    {
-      'id': 'FENS 1033',
-      'building': 'FENS',
-      'type': 'Classroom',
-      'capacity': 25,
-      'facilities': [
-        'Projector',
-        'Whiteboard',
-        'Inaccessible',
-      ],
-      'available': '16:00',
-    },
-  ];
-
   @override
   void dispose() {
     searchController.dispose();
@@ -70,7 +39,7 @@ class _SearchPageContentState extends State<_SearchPageContent> {
   }
 
   List<Map<String, dynamic>> get filteredRooms {
-    final result = rooms.where((room) {
+    final result = MockRooms.rooms.where((room) {
       final idMatch = room['id']
           .toString()
           .toLowerCase()
@@ -189,14 +158,22 @@ class _SearchPageContentState extends State<_SearchPageContent> {
   }
 
   Widget roomCard(Map<String, dynamic> room) {
-    final facilities = room['facilities'] as List<String>;
+    final facilities = room['attributes'] as List<String>;
+    final List<RoomAttributeIcon> facilityIcons = [];
+    for (final facility in facilities) {
+      if (AttributeTags.attributeIcons.containsKey(facility)) {
+        facilityIcons.add(AttributeTags.attributeIcons[facility]!);
+      }
+    }
 
     return GestureDetector(
       onTap: () {
         Navigator.pushNamed(
           context,
           '/room_details',
-          arguments: room['id'],
+          arguments: {
+            'id': room['id'],
+          },
         );
       },
       child: Container(
@@ -237,12 +214,9 @@ class _SearchPageContentState extends State<_SearchPageContent> {
                               ),
                             ),
                           ),
-                          if (facilities.contains('Accessible'))
-                            facilityIcon(Icons.accessible),
-                          if (facilities.contains('Projector'))
-                            facilityIcon(Icons.cast),
-                          if (facilities.contains('Whiteboard'))
-                            facilityIcon(Icons.draw_outlined),
+                          Row(
+                            children: facilityIcons,
+                          ),
                           const SizedBox(width: 5),
                           const Icon(
                             Icons.chevron_right,
@@ -441,35 +415,14 @@ class _SearchPageContentState extends State<_SearchPageContent> {
               const SizedBox(height: 15),
 
               // SEARCH BUTTON
-              SizedBox(
+              CustomButton(
                 width: double.infinity,
                 height: 43,
-                child: ElevatedButton(
-                  onPressed: () {
-                    setState(() {
-                      searchQuery = searchController.text.trim();
-                    });
-                  },
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: AppColors.lime,
-                    foregroundColor: AppColors.dark,
-                    elevation: 1,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(7),
-                      side: const BorderSide(
-                        color: AppColors.green,
-                      ),
-                    ),
-                  ),
-                  child: const Text(
-                    'Search',
-                    style: TextStyle(
-                      fontSize: 14,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                ),
-              ),
+                onPressed: () {
+                setState(() {
+                  searchQuery = searchController.text.trim();
+                });
+              }, text: 'Search'),
 
               const SizedBox(height: 18),
 
