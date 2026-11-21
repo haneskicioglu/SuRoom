@@ -4,6 +4,7 @@ import 'package:flutter/services.dart';
 import 'app_colors.dart';
 import 'bottom_navigation.dart';
 import 'search_room_page.dart';
+import 'my_account_page.dart';
 
 class HomeScreen extends StatefulWidget {
   final int initialTab;
@@ -29,7 +30,8 @@ class _HomeScreenState extends State<HomeScreen> {
         1 => const SearchPage(),
         2 => const Center(child: Text('Bookings page')),
         3 => const Center(child: Text('Map page')),
-        _ => const Center(child: Text('My Account page')),
+        4 => const Accountpage(),
+        _ => const _HomeBody(),
       },
       bottomNavigationBar: BottomNav(
         current: _tab,

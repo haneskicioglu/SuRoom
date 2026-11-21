@@ -6,6 +6,7 @@ import 'notifications_screen.dart';
 import 'campus_activities_screen.dart';
 import 'room_details.dart';
 import 'search_room_page.dart';
+import 'my_account_page.dart';
 
 void main() {
   runApp(const SuRoomApp());
@@ -31,6 +32,7 @@ class SuRoomApp extends StatelessWidget {
         '/activities': (context) => const CampusActivitiesScreen(),
         '/room_details': (context) => const RoomDetails(),
         '/search_room_page': (context) => const SearchPage(),
+        '/my_account_page' : (context) => const Accountpage(),
       }
     );
   }
