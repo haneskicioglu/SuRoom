@@ -84,13 +84,7 @@ class _AccountpageContent extends StatelessWidget {
               Row(
                 children: [
                   IconButton(
-                    onPressed: () {
-                      if (onBack != null) {
-                        onBack!();
-                      } else {
-                        Navigator.maybePop(context);
-                      }
-                    },
+                    onPressed: onBack,
                     icon: const Icon(
                       Icons.arrow_back_ios,
                       color: AppColors.dark,

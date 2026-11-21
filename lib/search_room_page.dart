@@ -3,16 +3,19 @@ import 'package:flutter/material.dart';
 import 'app_colors.dart';
 
 class SearchPage extends StatelessWidget {
-  const SearchPage({super.key});
+  final VoidCallback? onBack;
+
+  const SearchPage({super.key, this.onBack});
 
   @override
   Widget build(BuildContext context) {
-    return const _SearchPageContent();
+    return _SearchPageContent(onBack: onBack);
   }
 }
-
 class _SearchPageContent extends StatefulWidget {
-  const _SearchPageContent();
+  final VoidCallback? onBack;
+
+  const _SearchPageContent({this.onBack});
 
   @override
   State<_SearchPageContent> createState() => _SearchPageContentState();
@@ -291,7 +294,13 @@ class _SearchPageContentState extends State<_SearchPageContent> {
                       Icons.arrow_back_ios,
                       size: 19,
                     ),
-                    onPressed: () => Navigator.pushReplacementNamed(context, '/'),
+                    onPressed: () {
+                      if (widget.onBack != null) {
+                        widget.onBack!();
+                      } else {
+                        Navigator.maybePop(context);
+                      }
+                    },
                   ),
                   const Text(
                     'Search Room',

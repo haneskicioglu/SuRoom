@@ -27,10 +27,10 @@ class _HomeScreenState extends State<HomeScreen> {
           : null,
       body: switch (_tab) {
         0 => const _HomeBody(),
-        1 => const SearchPage(),
+        1 => SearchPage(onBack: () => setState(() => _tab = 0),),
         2 => const Center(child: Text('Bookings page')),
         3 => const Center(child: Text('Map page')),
-        4 => const Accountpage(),
+        4 => Accountpage(onBack: () => setState(() => _tab = 0),),
         _ => const _HomeBody(),
       },
       bottomNavigationBar: BottomNav(
