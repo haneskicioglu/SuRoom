@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-import 'app_colors.dart';
-import 'room_data_mock.dart';
+import 'app_colors.dart' ;
+import 'room_data_mock.dart' ;
+import 'room_details.dart' ;
 
 class RoomScheduleScreen extends StatefulWidget {
   const RoomScheduleScreen({super.key});
