@@ -7,6 +7,7 @@ import 'campus_activities_screen.dart';
 import 'room_details.dart';
 import 'search_room_page.dart';
 import 'my_account_page.dart';
+import 'login.dart';
 
 void main() {
   runApp(const SuRoomApp());
@@ -25,8 +26,9 @@ class SuRoomApp extends StatelessWidget {
         scaffoldBackgroundColor: AppColors.blue_background,
         fontFamily: 'Nexa',
       ),
-      initialRoute: '/',
+      initialRoute: '/login',
       routes: {
+        '/login': (context) => const LoginScreen(),
         '/': (context) => const HomeScreen(),
         '/notifications': (context) => const NotificationsScreen(),
         '/activities': (context) => const CampusActivitiesScreen(),
