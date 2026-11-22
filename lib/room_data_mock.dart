@@ -70,7 +70,7 @@ class MockRooms {
         'type': 'RESERVED',
         'until': '20:00',
         'event': {
-          'type': 'Club',
+          'type': 'Club Event',
           'name': 'Movie Night',
           'occupier': 'Arda Dikbaş',
           'club': 'Pandora Sci-Fi & Fantasy Club (BKFK)'

@@ -227,7 +227,7 @@ class _SearchPageContentState extends State<_SearchPageContent> {
                       ),
                       const SizedBox(height: 13),
                       Text(
-                        '${room['available']['type'] == 'AVAILABLE' ? 'Free' : room['available']['type'] == 'RESERVED' ? 'Ongoing Event' : room['available']['type'] == 'CLAIMED' ? 'Claimed' : 'Unknown'} ${(room['available']['until'] != null) ? 'until ${room['available']['until']}' : ''}',
+                        '${room['available']['type'] == 'AVAILABLE' ? 'Free' : room['available']['type'] == 'RESERVED' ? 'Ongoing ${room['available']['event']['type']}' : room['available']['type'] == 'CLAIMED' ? 'Claimed' : 'Unknown'} ${(room['available']['until'] != null) ? 'until ${room['available']['until']}' : ''}',
                         style: const TextStyle(
                           color: AppColors.teal,
                           fontSize: 11,

@@ -86,7 +86,7 @@ class AvailabilityCard extends Container {
                   )
               )
           ));
-        } else if (availability['event']['type'] == 'Club') {
+        } else if (availability['event']['type'] == 'Club Event') {
           titleText = 'Club Event in Progress';
           eventContainer.add(Container(
               padding: const EdgeInsets.fromLTRB(5, 2, 5, 2),
