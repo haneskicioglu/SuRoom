@@ -10,6 +10,7 @@ import 'my_account_page.dart';
 import 'building_page.dart';
 import 'map_page.dart';
 import 'login.dart';
+import 'room_schedule.dart';
 
 void main() {
   runApp(const SuRoomApp());
@@ -39,6 +40,7 @@ class SuRoomApp extends StatelessWidget {
         '/my_account_page' : (context) => const Accountpage(),
         '/map_page' : (context) => const MapPage(),
         '/building_map' : (context) => const BuildingMap(),
+        '/room_schedule' : (context) => const RoomSchedule(),
       }
     );
   }
