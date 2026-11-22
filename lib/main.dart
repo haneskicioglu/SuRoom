@@ -7,6 +7,7 @@ import 'campus_activities_screen.dart';
 import 'room_details.dart';
 import 'search_room_page.dart';
 import 'my_account_page.dart';
+import 'building_page.dart';
 import 'map_page.dart';
 import 'login.dart';
 
@@ -37,6 +38,7 @@ class SuRoomApp extends StatelessWidget {
         '/search_room_page': (context) => const SearchPage(),
         '/my_account_page' : (context) => const Accountpage(),
         '/map_page' : (context) => const MapPage(),
+        '/building_map' : (context) => const BuildingMap(),
       }
     );
   }
