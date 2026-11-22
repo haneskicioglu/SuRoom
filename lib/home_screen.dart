@@ -65,7 +65,9 @@ class _HomeBody extends StatelessWidget {
           icon: Icons.search,
           title: 'Search Room',
           subtitle: 'Search by room ID or filters',
-          onClick: null,
+          onClick: () => {
+            Navigator.pushNamed(context, '/search_room_page'),
+          }
         ),
         SizedBox(height: 12),
         _ActionTile(
