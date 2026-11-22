@@ -64,7 +64,25 @@ class _LoginScreenState extends State<LoginScreen> {
                         ),
                       ),
                       Text(
-                        'ROOM',
+                        'R',
+                        style: TextStyle(
+                          color: AppColors.teal,
+                          fontSize: 32,
+                          fontWeight: FontWeight.w900,
+                          letterSpacing: -1,
+                        ),
+                      ),
+                      Text(
+                        'OO',
+                        style: TextStyle(
+                          color: AppColors.green,
+                          fontSize: 32,
+                          fontWeight: FontWeight.w900,
+                          letterSpacing: -1,
+                        ),
+                      ),
+                      Text(
+                        'M',
                         style: TextStyle(
                           color: AppColors.teal,
                           fontSize: 32,

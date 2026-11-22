@@ -28,7 +28,7 @@ class SuRoomApp extends StatelessWidget {
         scaffoldBackgroundColor: AppColors.blue_background,
         fontFamily: 'Nexa',
       ),
-      initialRoute: '/',
+      initialRoute: '/login',
       routes: {
         '/login': (context) => const LoginScreen(),
         '/': (context) => const HomeScreen(),
