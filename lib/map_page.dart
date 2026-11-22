@@ -55,7 +55,7 @@ class MapPage extends StatelessWidget {
             IconButton(
               icon: Icon(Icons.arrow_back_ios_new,
                   color: AppColors.dark, size: 22),
-              onPressed: () => onBack?.call(),
+              onPressed: () => onBack != null ? onBack!() : Navigator.pop(context),
             ),
           ],
         ),

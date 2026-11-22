@@ -5,7 +5,7 @@ import 'app_colors.dart';
 class VerticalImagePager extends StatelessWidget {
   final List<String> imagePaths;
 
-  const VerticalImagePager({super.key, required List<String> imagePaths} );
+  const VerticalImagePager({super.key, required this.imagePaths});
 
   @override
   Widget build(BuildContext context) {

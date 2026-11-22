@@ -29,9 +29,8 @@ class _HomeScreenState extends State<HomeScreen> {
       body: switch (_tab) {
         0 => const _HomeBody(),
         1 => SearchPage(onBack: () => setState(() => _tab = 0),),
-        2 => const Center(child: Text('Bookings page')),
-        3 => MapPage(onBack: () => setState(() => _tab = 0),),
-        4 => Accountpage(onBack: () => setState(() => _tab = 0),),
+        2 => MapPage(onBack: () => setState(() => _tab = 0),),
+        3 => Accountpage(onBack: () => setState(() => _tab = 0),),
         _ => const _HomeBody(),
       },
       bottomNavigationBar: BottomNav(
@@ -68,13 +67,6 @@ class _HomeBody extends StatelessWidget {
           onClick: () => {
             Navigator.pushNamed(context, '/search_room_page'),
           }
-        ),
-        SizedBox(height: 12),
-        _ActionTile(
-          icon: Icons.confirmation_number_outlined,
-          title: 'Room Check-in',
-          subtitle: 'Check into the room that you are in',
-          onClick: null,
         ),
         SizedBox(height: 16),
         _CampusMapButton(),
