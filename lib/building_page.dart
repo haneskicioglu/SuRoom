@@ -49,7 +49,17 @@ class BuildingMap extends StatelessWidget {
       ),
       body:
         Center(
-          child: Image.asset('assets/images/${building}0.png'),
+          child: Image.asset(
+        'assets/images/${building}G.png',
+          errorBuilder: (context, error, stack) => Image.asset(
+            'assets/images/${building}1.png',
+            errorBuilder: (context, error, stack) => Image.asset(
+              'assets/images/${building}2.png',
+              errorBuilder: (context, error, stack) =>
+              const Text('Map not available'),
+            ),
+          ),
+        ),
         ),
     );
   }
