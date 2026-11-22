@@ -359,8 +359,10 @@ class _CampusMapButton extends StatelessWidget {
     return Material(
       color: AppColors.lime,
       borderRadius: BorderRadius.circular(6),
-      child: GestureDetector(
-        onTap: () {},
+      child: InkWell(
+        onTap: () => {
+          Navigator.pushNamed(context, '/map_page'),
+        },
         child: Container(
           padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 18),
           decoration: BoxDecoration(
