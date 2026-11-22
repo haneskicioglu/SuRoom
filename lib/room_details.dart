@@ -18,6 +18,7 @@ class AvailabilityCard extends Container {
     Color color = AppColors.dark;
     String titleText = 'Unknown Availability';
     String subtitleText = 'We don\'t have information about this room\'s availability.';
+    final List<Container> eventContainer = [];
 
     if (availability['type'] == 'AVAILABLE') {
       color = AppColors.teal;
@@ -29,8 +30,98 @@ class AvailabilityCard extends Container {
       subtitleText = 'This room is likely occupied by another student.\nPlease check the room yourself to confirm.';
     } else if (availability['type'] == 'RESERVED') {
       color = AppColors.red;
-      titleText = 'Reserved';
-      subtitleText = 'This room is reserved until ${availability['until']} for ${availability['event']['name']} by ${availability['event']['instructors'].join(', ')}.';
+      if (availability['event'] == null) {
+        titleText = 'Reserved';
+        subtitleText = 'This room is reserved until ${availability['until']}.';
+      } else {
+        if (availability['event']['type'] == 'Class') {
+          titleText = 'Class in Progress';
+          eventContainer.add(Container(
+              padding: const EdgeInsets.fromLTRB(5, 2, 5, 2),
+              decoration: BoxDecoration(
+                color: AppColors.brightGreen,
+                borderRadius: BorderRadius.circular(8),
+              ),
+              child: Expanded(
+                  child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text('${availability['event']['name']}',
+                            style: const TextStyle(
+                                fontSize: 18,
+                                fontWeight: FontWeight.w700,
+                                color: AppColors.cream)),
+                        Text('Instructed by ${availability['event']['instructors'].join(', ')}',
+                            style: const TextStyle(
+                                fontSize: 16,
+                                fontWeight: FontWeight.w400,
+                                color: AppColors.cream)),
+                      ]
+                  )
+              )
+          ));
+        } else if (availability['event']['type'] == 'Exam') {
+          titleText = 'Exam in Progress';
+          eventContainer.add(Container(
+              padding: const EdgeInsets.fromLTRB(5, 2, 5, 2),
+              decoration: BoxDecoration(
+                color: AppColors.darkRed,
+                borderRadius: BorderRadius.circular(8),
+              ),
+              child: Expanded(
+                  child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text('${availability['event']['name']}',
+                            style: const TextStyle(
+                                fontSize: 18,
+                                fontWeight: FontWeight.w700,
+                                color: AppColors.cream)),
+                        Text('Reserved by ${availability['event']['occupier']}',
+                            style: const TextStyle(
+                                fontSize: 16,
+                                fontWeight: FontWeight.w400,
+                                color: AppColors.cream)),
+                      ]
+                  )
+              )
+          ));
+        } else if (availability['event']['type'] == 'Club') {
+          titleText = 'Club Event in Progress';
+          eventContainer.add(Container(
+              padding: const EdgeInsets.fromLTRB(5, 2, 5, 2),
+              decoration: BoxDecoration(
+                color: AppColors.blurple,
+                borderRadius: BorderRadius.circular(8),
+              ),
+              child: Expanded(
+                  child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text('By ${availability['event']['club'] ?? 'Unknown Club'}',
+                            style: const TextStyle(
+                                fontSize: 16,
+                                fontWeight: FontWeight.w400,
+                                color: AppColors.cream)),
+                        Text('${availability['event']['name']}',
+                            style: const TextStyle(
+                                fontSize: 18,
+                                fontWeight: FontWeight.w700,
+                                color: AppColors.cream)),
+                        Text('Reserved by ${availability['event']['occupier']}',
+                            style: const TextStyle(
+                                fontSize: 16,
+                                fontWeight: FontWeight.w400,
+                                color: AppColors.cream)),
+                      ]
+                  )
+              )
+          ));
+        } else {
+          titleText = 'Reserved';
+        }
+        subtitleText = 'Next availability: ${availability['until']}';
+      }
     }
 
     return Container(
@@ -40,14 +131,14 @@ class AvailabilityCard extends Container {
         borderRadius: BorderRadius.circular(8),
       ),
       child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           Text(titleText,
             style: const TextStyle(
               fontSize: 22,
               fontWeight: FontWeight.w800,
               color: AppColors.cream)),
-          SizedBox(height: 5),
+          ...eventContainer,
           Text(subtitleText,
             style: const TextStyle(
               fontSize: 18,
@@ -127,6 +218,34 @@ class RoomDetails extends StatelessWidget {
       }
     }
 
+    final List<Container> extraDetails = [];
+
+    if (room['available']['type'] == 'AVAILABLE') {
+      extraDetails.add(Container(
+        padding: const EdgeInsets.fromLTRB(20, 8, 20, 8),
+        decoration: BoxDecoration(
+          color: AppColors.teal,
+          borderRadius: BorderRadius.circular(8),
+        ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            Text('In this room? Claim it!',
+              style: const TextStyle(
+                fontSize: 22,
+                fontWeight: FontWeight.w800,
+                color: AppColors.cream)),
+            Text('If you are currently in this room, you can claim it to let other students know that it is occupied.',
+              style: const TextStyle(
+                fontSize: 16,
+                fontWeight: FontWeight.w500,
+                color: AppColors.cream)),
+            CustomButton(text: 'Claim This Room', onPressed: () {}, fontSize: 18),
+          ]
+        )
+      ));
+    }
+
     return Scaffold(
       backgroundColor: AppColors.blue_background,
       appBar: myBar,
@@ -158,6 +277,7 @@ class RoomDetails extends StatelessWidget {
                     CustomButton(
                       text: 'Navigate',
                       onPressed: () {},
+                      fontSize: 14,
                     )
                   ]
                 ),
@@ -209,7 +329,9 @@ class RoomDetails extends StatelessWidget {
           SizedBox(height: 10),
           AvailabilityCard(
             room: room
-          )
+          ),
+          SizedBox(height: 10),
+          ...extraDetails
         ]
       ),
     );

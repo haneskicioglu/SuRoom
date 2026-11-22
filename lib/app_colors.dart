@@ -13,6 +13,9 @@ class AppColors {
   static const grey = Color(0xFF6B7378);
   static const darkYellow = Color(0xFF8D7B47);
   static const red = Color(0xFF851313);
+  static const brightGreen = Color(0xFF206D12);
+  static const darkRed = Color(0xFF440606);
+  static const blurple = Color(0xFF493B54);
 }
 
 class RoomAttributeIcon extends StatelessWidget {
@@ -104,6 +107,7 @@ class CustomButton extends SizedBox {
     super.height,
     VoidCallback? onPressed,
     required String text,
+    double fontSize = 14,
   }) : super(
     child: ElevatedButton(
       onPressed: onPressed,
@@ -121,7 +125,7 @@ class CustomButton extends SizedBox {
       child: Text(
         text,
         style: TextStyle(
-          fontSize: 14,
+          fontSize: fontSize,
           fontWeight: FontWeight.bold,
         ),
       ),

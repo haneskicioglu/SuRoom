@@ -42,5 +42,40 @@ class MockRooms {
         }
       },
     },
+    {
+      'id': 'FASS 1076',
+      'building': 'Faculty of Arts & Social Sciences',
+      'floor': 1,
+      'type': 'Large Classroom',
+      'capacity': 72,
+      'attributes': ['POWER', 'CIRCULAR', 'ETHERNET'],
+      'available': {
+        'type': 'RESERVED',
+        'until': '17:00',
+        'event': {
+          'type': 'Exam',
+          'name': 'CS305 Midterm Exam',
+          'occupier': 'Hüsnü Yenigün'
+        }
+      },
+    },
+    {
+      'id': 'UC G030',
+      'building': 'University Center',
+      'floor': 0,
+      'type': 'Cinema Room',
+      'capacity': 72,
+      'attributes': ['NO_WINDOWS'],
+      'available': {
+        'type': 'RESERVED',
+        'until': '20:00',
+        'event': {
+          'type': 'Club',
+          'name': 'Movie Night',
+          'occupier': 'Arda Dikbaş',
+          'club': 'Pandora Sci-Fi & Fantasy Club (BKFK)'
+        }
+      },
+    }
   ];
 }
