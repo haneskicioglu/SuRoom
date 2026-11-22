@@ -328,11 +328,113 @@ class RoomDetails extends StatelessWidget {
           ),
           SizedBox(height: 10),
           AvailabilityCard(
-            room: room
+              room: room
           ),
+          SizedBox(height: 10),
+          _RoomAvailabilityPreview(roomId: '${room['id']}'),
           SizedBox(height: 10),
           ...extraDetails
         ]
+      ),
+    );
+  }
+}
+
+class _RoomAvailabilityPreview extends StatelessWidget {
+  final String roomId;
+
+  const _RoomAvailabilityPreview({required this.roomId});
+
+  static const _slots = [
+    ('14:00 – 15:00', 'Reserved', false),
+    ('15:00 – 16:00', 'Available', true),
+    ('16:00 – 17:00', 'Lecture', false),
+  ];
+
+  void _openSchedule(BuildContext context) {
+    Navigator.pushNamed(context, '/room_schedule', arguments: {'id': roomId});
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Material(
+      color: AppColors.cream,
+      borderRadius: BorderRadius.circular(8),
+      clipBehavior: Clip.antiAlias,
+      child: InkWell(
+        onTap: () => _openSchedule(context),
+        child: Padding(
+          padding: const EdgeInsets.fromLTRB(20, 18, 20, 18),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const Text('Room availability',
+                  style: TextStyle(
+                      fontSize: 22,
+                      fontWeight: FontWeight.w700,
+                      color: AppColors.dark)),
+              Row(
+                children: [
+                  const Expanded(
+                    child: Text('Mon, 2 Nov 2026',
+                        style: TextStyle(fontSize: 15, color: AppColors.grey)),
+                  ),
+                  TextButton(
+                    onPressed: () => _openSchedule(context),
+                    child: const Text('View day →',
+                        style: TextStyle(
+                            fontSize: 15,
+                            fontWeight: FontWeight.w600,
+                            color: AppColors.teal)),
+                  ),
+                ],
+              ),
+              const SizedBox(height: 4),
+              Column(
+                children: _slots.map((slot) {
+                  final (time, label, available) = slot;
+                  return Container(
+                    margin: const EdgeInsets.only(bottom: 6),
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 16, vertical: 12),
+                    decoration: BoxDecoration(
+                      color: available ? AppColors.teal : Colors.transparent,
+                      borderRadius: BorderRadius.circular(6),
+                    ),
+                    child: Row(
+                      children: [
+                        Expanded(
+                          child: Text(time,
+                              style: TextStyle(
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.w500,
+                                  color: available
+                                      ? AppColors.cream
+                                      : AppColors.dark)),
+                        ),
+                        if (available)
+                          const Padding(
+                            padding: EdgeInsets.only(right: 8),
+                            child: Icon(Icons.check,
+                                size: 18, color: AppColors.lime),
+                          ),
+                        Text(label,
+                            style: TextStyle(
+                                fontSize: 16,
+                                fontWeight: available
+                                    ? FontWeight.w600
+                                    : FontWeight.w400,
+                                color: available
+                                    ? AppColors.cream
+                                    : AppColors.grey)),
+                      ],
+                    ),
+                  );
+                }).toList(),
+              ),
+            ],
+          ),
+        ),
       ),
     );
   }

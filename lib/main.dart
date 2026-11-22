@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:hello_flutter/room_schedule.dart';
 
 import 'app_colors.dart';
 import 'home_screen.dart';
@@ -41,6 +42,7 @@ class SuRoomApp extends StatelessWidget {
         '/map_page' : (context) => const MapPage(),
         '/building_map' : (context) => const BuildingMap(),
         '/nearest_room' : (context) => const FindRoomPage(),
+        '/room_schedule' : (context) => const RoomScheduleScreen(),
       }
     );
   }

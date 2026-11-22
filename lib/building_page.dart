@@ -50,7 +50,7 @@ class BuildingMap extends StatelessWidget {
       body:
         Center(
           child: Image.asset(
-        'assets/images/${building}G.png',
+          'assets/images/${building}G.png',
           errorBuilder: (context, error, stack) => Image.asset(
             'assets/images/${building}1.png',
             errorBuilder: (context, error, stack) => Image.asset(
