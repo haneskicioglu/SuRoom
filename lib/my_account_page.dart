@@ -1,5 +1,6 @@
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'app_colors.dart';
 
 class Accountpage extends StatelessWidget {
@@ -69,7 +70,40 @@ class _AccountpageContent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return Scaffold(
+      appBar: AppBar(
+        toolbarHeight: 80,
+        backgroundColor: AppColors.blue_background,
+        surfaceTintColor: AppColors.blue_background,
+        systemOverlayStyle: SystemUiOverlayStyle(
+          statusBarColor: AppColors.blue_background,
+          statusBarIconBrightness: Brightness.dark,
+          statusBarBrightness: Brightness.light,
+        ),
+        title: Text('Settings',
+          style: TextStyle(
+            fontSize: 30,
+            fontWeight: FontWeight.w700,
+            color: AppColors.dark,
+          ),
+        ),
+        leading: Row(
+          children: [
+            IconButton(
+              icon: Icon(Icons.arrow_back_ios_new,
+                  color: AppColors.dark, size: 22),
+              onPressed: () {
+                if (onBack != null) {
+                  onBack!();
+                } else {
+                  Navigator.maybePop(context);
+                }
+              },
+            ),
+          ],
+        ),
+      ),
+    body: Container(
       color: AppColors.blue_background,
       child: SafeArea(
         child: Padding(
@@ -80,32 +114,6 @@ class _AccountpageContent extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              // HEADER
-              Row(
-                children: [
-                  IconButton(
-                    onPressed: onBack,
-                    icon: const Icon(
-                      Icons.arrow_back_ios,
-                      color: AppColors.dark,
-                      size: 20,
-                    ),
-                  ),
-                  const SizedBox(width: 4),
-                  const Text(
-                    'Settings',
-                    style: TextStyle(
-                      fontSize: 23,
-                      fontWeight: FontWeight.bold,
-                      color: AppColors.dark,
-                    ),
-                  ),
-                ],
-              ),
-
-              const SizedBox(height: 24),
-
-
               // NOTIFICATIONS
               settingsCard(
                 title: 'Notifications',
@@ -149,6 +157,7 @@ class _AccountpageContent extends StatelessWidget {
           ),
         ),
       ),
+    ),
     );
   }
 }

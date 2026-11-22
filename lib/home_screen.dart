@@ -5,6 +5,7 @@ import 'app_colors.dart';
 import 'bottom_navigation.dart';
 import 'search_room_page.dart';
 import 'my_account_page.dart';
+import 'map_page.dart';
 
 class HomeScreen extends StatefulWidget {
   final int initialTab;
@@ -29,7 +30,7 @@ class _HomeScreenState extends State<HomeScreen> {
         0 => const _HomeBody(),
         1 => SearchPage(onBack: () => setState(() => _tab = 0),),
         2 => const Center(child: Text('Bookings page')),
-        3 => const Center(child: Text('Map page')),
+        3 => MapPage(onBack: () => setState(() => _tab = 0),),
         4 => Accountpage(onBack: () => setState(() => _tab = 0),),
         _ => const _HomeBody(),
       },

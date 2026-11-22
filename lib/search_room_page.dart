@@ -2,6 +2,7 @@
 import 'package:flutter/material.dart';
 import 'app_colors.dart';
 import 'room_data_mock.dart';
+import 'package:flutter/services.dart';
 
 class SearchPage extends StatelessWidget {
   final VoidCallback? onBack;
@@ -250,6 +251,38 @@ class _SearchPageContentState extends State<_SearchPageContent> {
     final results = filteredRooms;
 
     return Scaffold(
+      appBar: AppBar(
+        toolbarHeight: 80,
+        backgroundColor: AppColors.blue_background,
+        surfaceTintColor: AppColors.blue_background,
+        systemOverlayStyle: SystemUiOverlayStyle(
+          statusBarColor: AppColors.blue_background,
+          statusBarIconBrightness: Brightness.dark,
+          statusBarBrightness: Brightness.light,
+        ),
+        title: Text('Search Rooms',
+          style: TextStyle(
+            fontSize: 30,
+            fontWeight: FontWeight.w700,
+            color: AppColors.dark,
+          ),
+        ),
+        leading: Row(
+          children: [
+            IconButton(
+              icon: Icon(Icons.arrow_back_ios_new,
+                  color: AppColors.dark, size: 22),
+              onPressed: () {
+                if (widget.onBack != null) {
+                  widget.onBack!();
+                } else {
+                  Navigator.maybePop(context);
+                }
+              },
+            ),
+          ],
+        ),
+      ),
       backgroundColor: AppColors.blue_background,
       body: SafeArea(
         child: SingleChildScrollView(
@@ -260,35 +293,6 @@ class _SearchPageContentState extends State<_SearchPageContent> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              // HEADER
-              Row(
-                children: [
-                  IconButton(
-                    icon: const Icon(
-                      Icons.arrow_back_ios,
-                      size: 19,
-                    ),
-                    onPressed: () {
-                      if (widget.onBack != null) {
-                        widget.onBack!();
-                      } else {
-                        Navigator.maybePop(context);
-                      }
-                    },
-                  ),
-                  const Text(
-                    'Search Room',
-                    style: TextStyle(
-                      fontSize: 22,
-                      fontWeight: FontWeight.bold,
-                      color: AppColors.dark,
-                    ),
-                  ),
-                ],
-              ),
-
-              const SizedBox(height: 18),
-
               Text(
                 'Search by ID or narrow down with filters.',
                 style: TextStyle(
