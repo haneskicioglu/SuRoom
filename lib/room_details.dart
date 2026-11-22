@@ -224,7 +224,7 @@ class RoomDetails extends StatelessWidget {
       extraDetails.add(Container(
         padding: const EdgeInsets.fromLTRB(20, 8, 20, 8),
         decoration: BoxDecoration(
-          color: AppColors.teal,
+          color: AppColors.darkYellow,
           borderRadius: BorderRadius.circular(8),
         ),
         child: Column(
