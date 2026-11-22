@@ -5,6 +5,60 @@ import 'room_data_mock.dart';
 import 'app_colors.dart';
 
 
+class AvailabilityCard extends Container {
+  final Map<String, dynamic> room;
+  AvailabilityCard({super.key, required this.room});
+
+  @override
+  Widget build(BuildContext context) {
+    final Map<String,dynamic> availability = room['available'] ?? {
+      'type': 'UNKNOWN',
+      'until': null,
+    };
+    Color color = AppColors.dark;
+    String titleText = 'Unknown Availability';
+    String subtitleText = 'We don\'t have information about this room\'s availability.';
+
+    if (availability['type'] == 'AVAILABLE') {
+      color = AppColors.teal;
+      titleText = 'Available until ${availability['until']}';
+      subtitleText = 'Please check the room yourself to confirm.';
+    } else if (availability['type'] == 'CLAIMED') {
+      color = AppColors.darkYellow;
+      titleText = 'Claimed by another student';
+      subtitleText = 'This room is likely occupied by another student.\nPlease check the room yourself to confirm.';
+    } else if (availability['type'] == 'RESERVED') {
+      color = AppColors.red;
+      titleText = 'Reserved';
+      subtitleText = 'This room is reserved until ${availability['until']} for ${availability['event']['name']} by ${availability['event']['instructors'].join(', ')}.';
+    }
+
+    return Container(
+      padding: const EdgeInsets.fromLTRB(20, 8, 20, 8),
+      decoration: BoxDecoration(
+        color: color,
+        borderRadius: BorderRadius.circular(8),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(titleText,
+            style: const TextStyle(
+              fontSize: 22,
+              fontWeight: FontWeight.w800,
+              color: AppColors.cream)),
+          SizedBox(height: 5),
+          Text(subtitleText,
+            style: const TextStyle(
+              fontSize: 18,
+              fontWeight: FontWeight.w400,
+              color: AppColors.cream)),
+        ]
+      )
+    );
+  }
+}
+
 class RoomDetails extends StatelessWidget {
   const RoomDetails({super.key});
 
@@ -151,6 +205,10 @@ class RoomDetails extends StatelessWidget {
                 )
               ]
             )
+          ),
+          SizedBox(height: 10),
+          AvailabilityCard(
+            room: room
           )
         ]
       ),

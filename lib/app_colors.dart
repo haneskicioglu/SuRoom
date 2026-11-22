@@ -11,6 +11,8 @@ class AppColors {
   static const lime = Color(0xFFE2F59A);
   static const dark = Color(0xFF1E2B33);
   static const grey = Color(0xFF6B7378);
+  static const darkYellow = Color(0xFF8D7B47);
+  static const red = Color(0xFF851313);
 }
 
 class RoomAttributeIcon extends StatelessWidget {

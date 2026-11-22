@@ -8,7 +8,10 @@ class MockRooms {
       'floor': 0,
       'capacity': 80,
       'attributes': ['POWER', 'ETHERNET', 'SEATS', 'BLACKBOARD'],
-      'available': '16:00',
+      'available': {
+        'type': 'AVAILABLE',
+        'until': '16:00',
+      },
     },
     {
       'id': 'FMAN L014',
@@ -17,7 +20,10 @@ class MockRooms {
       'type': 'Lecture hall',
       'capacity': 90,
       'attributes': ['POWER', 'ETHERNET', 'CIRCULAR', 'NO_WINDOWS'],
-      'available': '16:00',
+      'available': {
+        'type': 'CLAIMED',
+        'until': null,
+      },
     },
     {
       'id': 'FENS 1033',
@@ -26,7 +32,15 @@ class MockRooms {
       'type': 'Lab',
       'capacity': 60,
       'attributes': ['POWER', 'SEATS', 'LOCKED'],
-      'available': '16:00',
+      'available': {
+        'type': 'RESERVED',
+        'until': '16:00',
+        'event': {
+          'type': 'Class',
+          'name': 'EE 321L',
+          'instructors': ['Ayhan Bozkurt']
+        }
+      },
     },
   ];
 }
