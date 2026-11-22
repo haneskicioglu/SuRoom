@@ -56,7 +56,7 @@ class _HomeBody extends StatelessWidget {
           title: 'Nearest Empty Room',
           subtitle: 'Nearest rooms with no activity',
           onClick: () => {
-            Navigator.pushNamed(context, '/room_details', arguments: {'roomName': 'G032', 'building': 'FENS'}),
+            Navigator.pushNamed(context, '/nearest_room'),
           },
         ),
         SizedBox(height: 12),
