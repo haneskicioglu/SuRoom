@@ -32,7 +32,7 @@ flutter run
 
 Duru Halıcı - [dru211](https://github.com/dru211)
 
-Han Eskicioğlu - [haneskicioglu](https://github.com/haneskicioglu)
+Han Eskicioğlu - [haneskicioglu](https://github.com/haneskicioglu) / [LastPotatos](https://github.com/LastPotatos)
 
 Hüseyin Efe Çağlar - [YouTube-101](https://github.com/YouTube-101)
 
